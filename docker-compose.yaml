@@ -1,0 +1,52 @@
+version: "3"
+
+services:
+
+    backend_server:
+        build:
+            context: .
+            dockerfile: Backend.Dockerfile
+        container_name: taskexecutor_api
+        ports:
+            - "3500:3500"
+        env_file: .env
+        restart: always
+        depends_on:
+            - database
+        networks:
+            - network
+
+    database:
+        image: mongo
+        container_name: database_api
+        restart: always
+        ports:
+            - "27018:27017"
+        env_file: .env
+        volumes:
+            - database_data:/data/db
+            - ./Database/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+        networks:
+            - network
+
+    agent:
+        build:
+            context: .
+            dockerfile: Agent.Dockerfile
+        container_name: taskexecutor_agent
+        env_file: .env
+        depends_on:
+            - database
+            - backend_server
+        networks:
+            - network
+
+volumes:
+    database_data:
+
+networks:
+    network:
+        ipam:
+            driver: default
+            config:
+                - subnet: "192.168.91.0/24"

@@ -1,0 +1,28 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "BackendAPI | Debug",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "program": "${cwd}/BackendApi",
+            "preLaunchTask": "Build | Debug | Backend API"
+        },
+        {
+            "name": "Agent | Debug",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "program": "${cwd}/Agent",
+            "preLaunchTask": "Build | Debug | Agent"
+        },
+        {
+            "name": "Attach to process",
+            "type": "go",
+            "request": "attach",
+            "mode": "local",
+            "processId": "${command:pickGoProcess}",
+        }
+    ]
+}

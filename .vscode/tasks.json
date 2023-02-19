@@ -1,0 +1,17 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "Build | Debug | Backend API",
+        "type": "shell",
+        "command": "go build -gcflags=all=\"-N -l\" -o backend_server.o taskexecutor/backend",
+        "group": "build"
+      },
+      {
+        "label": "Build | Debug | Agent",
+        "type": "shell",
+        "command": "go build -gcflags=all=\"-N -l\" -o agent.o taskexecutor/agent",
+        "group": "build"
+      }
+    ]
+  }
